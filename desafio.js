@@ -1,3 +1,5 @@
+const { v4: uuidv4 } = require('uuid');
+
 class book {
     constructor(title,  description, author) {
       this.title = title;
@@ -13,19 +15,27 @@ class book {
     };
 
     addBook(book){
-        this.books.push(book)
+        const id = uuidv4()
+        this.books.push([id,book])
         return book
 
     };
 
     getBooks(){
-        //this.books.forEach(function (item, indice) {
-        //    console.log(indice, item.title, item.description, item.author);
-        //  });
-        return this.books
+        const lista = []
+        for (const item in this.books){
+            lista.push(item[1])
+            console.log(item[1]);
+        };
+        console.log(lista);
+        return lista;
     };
 
     removeBookById(id){
+        
+        for (let item in this.books){
+            
+        };
         this.books.splice(id,1)
     };
 
@@ -47,13 +57,8 @@ const livro3 = new book("Maria","Teste","Davi");
 
 const biblioteca = new library()
 
+
 biblioteca.addBook(livro1)
 biblioteca.addBook(livro2)
 biblioteca.addBook(livro3)
-console.log(biblioteca.getBooks())
-console.log(biblioteca.getBookById(0))
-console.log(biblioteca.getBookById(1))
-console.log(biblioteca.getBookById(2))
-console.log(biblioteca.removeBookById(1))
-console.log(biblioteca.getBookById(0))
-console.log(biblioteca.getBookById(1))
+biblioteca.getBooks();
