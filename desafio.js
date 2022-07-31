@@ -97,12 +97,11 @@ const livro3 = new book("Maria","Teste","Davi");
 
 const biblioteca = new library()
 
-
 biblioteca.addBook(livro1)
 const teste = biblioteca.addBook(livro2)
 biblioteca.addBook(livro3)
 biblioteca.getBooks();
-console.log("add");
-info = {title:"Maria",description: "Teste",author: "Davi"}
-console.log(biblioteca.updateBookById(teste.id,info));
+
+info = {title:"Mauricio",description: "Teste",author: "Davi"}
+biblioteca.updateBookById(teste.id,info)
 console.log(biblioteca.getBookById(teste.id));
