@@ -4,47 +4,87 @@ class book {
     constructor(title,  description, author) {
       this.title = title;
       this.description = description;
-      this.author = author
-    }
+      this.author = author;
+      
+    };
+
+    addId(id){
+        this.id = id;
+    };
   };
 
   class library{
     constructor(){
         this.books = []
-
     };
 
     addBook(book){
         const id = uuidv4()
-        this.books.push([id,book])
+        book.addId(id)
+        this.books.push(book)
         return book
 
     };
 
     getBooks(){
-        const lista = []
-        for (const item in this.books){
-            lista.push(item[1])
-            console.log(item[1]);
-        };
-        console.log(lista);
-        return lista;
+        return this.books;
     };
 
     removeBookById(id){
-        
-        for (let item in this.books){
-            
+        let idx = 0
+        let deletedBook;
+        let findBook = true;
+        while(findBook){
+            if(id === this.books[idx].id){
+                findBook=false;
+                deletedBook = this.books[idx];
+                this.books.splice(idx,1);
+                return deletedBook
+            };
+            idx += 1;
+            if(idx >= this.books.length){
+                findBook = false;
+            }
         };
-        this.books.splice(id,1)
+        console.log("Livro não encontrado!");
+        return null;
     };
 
     getBookById(id){
-        return this.books[id]
+        let idx = 0
+        let findBook = true;
+        while(findBook){
+            if(id === this.books[idx].id){
+                findBook=false;
+                return this.books[idx];
+            };
+            idx += 1;
+            if(idx >= this.books.length){
+                findBook = false;
+            }
+        };
+        console.log("Livro não encontrado!");
+        return null;
     };
 
-    updateBookById(id){
-        return None
+    updateBookById(id, info){
+        let idx = 0;
+        let findBook = true;
+        while(findBook){
+            if(id === this.books[idx].id){
+                findBook=false;
+                this.books[idx].title = info.title;
+                this.books[idx].description = info.description;
+                this.books[idx].author = info.author;
+                return this.books[idx];
+            };
+            idx += 1;
+            if(idx >= this.books.length){
+                findBook = false;
+            }
+        };
+        console.log("Livro não encontrado!");
+        return null;
     };
 
   };
@@ -59,6 +99,10 @@ const biblioteca = new library()
 
 
 biblioteca.addBook(livro1)
-biblioteca.addBook(livro2)
+const teste = biblioteca.addBook(livro2)
 biblioteca.addBook(livro3)
 biblioteca.getBooks();
+console.log("add");
+info = {title:"Maria",description: "Teste",author: "Davi"}
+console.log(biblioteca.updateBookById(teste.id,info));
+console.log(biblioteca.getBookById(teste.id));
